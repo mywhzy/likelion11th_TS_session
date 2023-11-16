@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { User } from '../types';
 
 export const UserListPage = () => {
-  const { data } = useSWR('/api/users');
+  const { data } = useSWR('api/users');
 
   const users: User[] = data?.data.users;
 
