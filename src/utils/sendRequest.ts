@@ -1,7 +1,10 @@
 import { BASE_URL } from '../constants';
-import { User } from '../types';
+import { User, LoginFormValues } from '../types';
 
-export const sendRequest = async (url: string, { arg }: { arg: User }) => {
+export const sendRequest = async (
+  url: string,
+  { arg }: { arg: User | LoginFormValues },
+) => {
   return await fetch(BASE_URL + url, {
     method: 'POST',
     headers: {
