@@ -4,21 +4,29 @@ import { BASE_URL } from './constants';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { UserListPage } from './pages/UserListPage';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './style/theme';
+import { GlobalStyles } from './style/GlobalStyles';
+import { GlobalFonts } from './style/GlobalFonts';
 
 function App() {
   return (
-    <SWRConfig
-      value={{
-        fetcher: (url: string) =>
-          fetch(BASE_URL + url).then((res) => res.json()),
-      }}
-    >
-      <Routes>
-        <Route path="/" element={<UserListPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </SWRConfig>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <GlobalFonts />
+      <SWRConfig
+        value={{
+          fetcher: (url: string) =>
+            fetch(BASE_URL + url).then((res) => res.json()),
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<UserListPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </SWRConfig>
+    </ThemeProvider>
   );
 }
 
