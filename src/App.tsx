@@ -14,9 +14,9 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<UserListPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="/users" element={<UserListPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </SWRConfig>
   );
