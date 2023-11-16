@@ -1,15 +1,27 @@
 import { useFormik } from 'formik';
+import useSWRMutation from 'swr/mutation';
+import { useNavigate } from 'react-router-dom';
+import { sendRequest } from '../utils/sendRequest';
 
 export const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const { trigger } = useSWRMutation('api/auth/register', sendRequest, {
+    onSuccess: () => {
+      alert('회원가입 성공!');
+      navigate('/login');
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
-      userName: '',
+      username: '',
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
-      // api 연결 전 테스팅용 콘솔 출력
-      console.log(values);
+    onSubmit: async (values, { resetForm }) => {
+      await trigger(values);
+      resetForm();
     },
   });
 
@@ -19,10 +31,10 @@ export const RegisterPage = () => {
       <form onSubmit={formik.handleSubmit}>
         <input
           type="text"
-          name="userName"
+          name="username"
           placeholder="User Name"
           onChange={formik.handleChange}
-          value={formik.values.userName}
+          value={formik.values.username}
           required
         />
         <input
