@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './style/theme';
 import { GlobalStyles } from './style/GlobalStyles';
 import { GlobalFonts } from './style/GlobalFonts';
+import { Header } from './components/Header';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             fetch(BASE_URL + url).then((res) => res.json()),
         }}
       >
+        <Header />
         <Routes>
           <Route path="/" element={<UserListPage />} />
           <Route path="register" element={<RegisterPage />} />
