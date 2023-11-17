@@ -14,6 +14,17 @@ import { Header } from './ds/components/Header';
 function App() {
   const navigate = useNavigate();
 
+  const tabs = [
+    {
+      id: 0,
+      title: '로그인',
+    },
+    {
+      id: 1,
+      title: '회원가입',
+    },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
@@ -24,7 +35,7 @@ function App() {
             fetch(BASE_URL + url).then((res) => res.json()),
         }}
       >
-        <Header onClick={() => navigate('/')} />
+        <Header onClick={() => navigate('/')} tabs={tabs} />
         <Routes>
           <Route path="/" element={<UserListPage />} />
           <Route path="/register" element={<RegisterPage />} />

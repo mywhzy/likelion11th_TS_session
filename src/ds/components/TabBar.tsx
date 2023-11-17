@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import { Tab } from './Tab';
-import { TABS } from '../../constants';
+import { Tabs } from '../../types';
 
-export const TabBar = () => {
+interface TabBarProps {
+  tabs: Tabs[];
+}
+
+export const TabBar = ({ tabs }: TabBarProps) => {
   return (
     <Container>
-      <Tab>{TABS[0]}</Tab>
-      <Tab>{TABS[1]}</Tab>
+      {tabs.map((tab) => (
+        <Tab key={tab.id}>{tab.title}</Tab>
+      ))}
     </Container>
   );
 };

@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 import { ReactComponent as LogoSvg } from '../../assets/images/Lion.svg';
 import { TabBar } from './TabBar';
+import { Tabs } from '../../types';
 
 interface HeaderProps {
   onClick: () => void;
+  tabs: Tabs[];
 }
 
-export const Header = ({ onClick }: HeaderProps) => {
+export const Header = ({ onClick, tabs }: HeaderProps) => {
   return (
     <Container>
       <InnerContainer>
         <Logo onClick={onClick} />
-        <TabBar />
+        <TabBar tabs={tabs} />
       </InnerContainer>
     </Container>
   );
