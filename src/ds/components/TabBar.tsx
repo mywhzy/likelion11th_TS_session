@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Tab } from './Tab';
-import { TABS } from '../constants';
+import { TABS } from '../../constants';
 
 export const TabBar = () => {
   return (

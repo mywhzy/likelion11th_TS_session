@@ -5,7 +5,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { UserListPage } from './pages/UserListPage';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './style/theme';
+import { theme } from './ds/theme';
 import { GlobalStyles } from './style/GlobalStyles';
 import { GlobalFonts } from './style/GlobalFonts';
 import { Header } from './ds/components/Header';
