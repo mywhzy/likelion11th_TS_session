@@ -8,3 +8,8 @@ export interface LoginFormValues {
   email: string;
   password: string;
 }
+
+export interface Tabs {
+  id: number;
+  title: string;
+}
