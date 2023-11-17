@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as Logo } from '../assets/images/Lion.svg';
+import { ReactComponent as LogoSvg } from '../assets/images/Lion.svg';
 import { TabBar } from './TabBar';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,4 +31,8 @@ const InnerContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   align-self: stretch;
+`;
+
+const Logo = styled(LogoSvg)`
+  cursor: pointer;
 `;
