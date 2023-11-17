@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 1200px;
   padding: 14px 16px;
   border-radius: 12px;
-  box-shadow: 0px 0px 8px 0px #e5e8f0;
+  box-shadow: 0 0 8px 0 #e5e8f0;
   display: flex;
   flex-direction: column;
   justify-content: center;
