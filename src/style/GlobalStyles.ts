@@ -52,6 +52,17 @@ table {
 	border-spacing: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button{
+	all: unset; 
+	cursor: pointer;
+ }
+
 *,body {
     font-family: 'Pretendard';
 }
