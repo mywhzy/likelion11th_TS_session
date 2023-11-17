@@ -1,5 +1,5 @@
 import 'styled-components';
-import { Color, Typography } from './ds/theme';
+import { Color, Typography } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
