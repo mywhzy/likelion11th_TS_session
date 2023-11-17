@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import styled from 'styled-components';
 import { User } from '../types';
-import { UserList } from '../components/UserList';
+import { UserList } from '../ds/components/UserList';
 import { ReactComponent as HomeLogo } from '../assets/images/BigLion.svg';
 
 export const UserListPage = () => {
