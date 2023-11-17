@@ -21,6 +21,9 @@ const Container = styled.div`
   justify-content: center;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
   height: 70px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
 `;
 
 const InnerContainer = styled.div`
