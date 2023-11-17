@@ -35,7 +35,7 @@ function App() {
             fetch(BASE_URL + url).then((res) => res.json()),
         }}
       >
-        <Header onClick={() => navigate('/')} tabs={tabs} />
+        <Header onClickLogo={() => navigate('/')} tabs={tabs} />
         <Routes>
           <Route path="/" element={<UserListPage />} />
           <Route path="/register" element={<RegisterPage />} />

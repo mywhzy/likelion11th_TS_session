@@ -4,15 +4,15 @@ import { TabBar } from './TabBar';
 import { Tabs } from '../../types';
 
 interface HeaderProps {
-  onClick: () => void;
+  onClickLogo: () => void;
   tabs: Tabs[];
 }
 
-export const Header = ({ onClick, tabs }: HeaderProps) => {
+export const Header = ({ onClickLogo, tabs }: HeaderProps) => {
   return (
     <Container>
       <InnerContainer>
-        <Logo onClick={onClick} />
+        <Logo onClick={onClickLogo} />
         <TabBar tabs={tabs} />
       </InnerContainer>
     </Container>
@@ -33,7 +33,7 @@ const InnerContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0 20px;
   max-width: 1200px;
   width: 100%;
   align-self: stretch;
