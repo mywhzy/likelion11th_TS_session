@@ -1,5 +1,8 @@
 import useSWR from 'swr';
+import styled from 'styled-components';
 import { User } from '../types';
+import { UserList } from '../components/UserList';
+import { ReactComponent as HomeLogo } from '../assets/images/BigLion.svg';
 
 export const UserListPage = () => {
   const { data } = useSWR('api/users');
@@ -7,14 +10,32 @@ export const UserListPage = () => {
   const users: User[] = data?.data.users;
 
   return (
-    <>
-      <h3>가입 유저 목록</h3>
-      {users &&
-        users.map((user) => (
-          <div key={user.email}>
-            <b>username: </b> {user.username} <b>email: </b> {user.email}
-          </div>
-        ))}
-    </>
+    <Container>
+      <HomeLogo />
+      <ListContainer>
+        {users &&
+          users.map((user) => (
+            <UserList
+              key={user.email}
+              username={user.username}
+              email={user.email}
+            />
+          ))}
+      </ListContainer>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  margin-top: 60px;
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+`;
