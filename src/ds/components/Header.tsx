@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-import { ReactComponent as LogoSvg } from '../assets/images/Lion.svg';
+import { ReactComponent as LogoSvg } from '../../assets/images/Lion.svg';
 import { TabBar } from './TabBar';
-import { useNavigate } from 'react-router-dom';
 
-export const Header = () => {
-  const navigate = useNavigate();
+interface HeaderProps {
+  onClick: () => void;
+}
 
+export const Header = ({ onClick }: HeaderProps) => {
   return (
     <Container>
       <InnerContainer>
-        <Logo onClick={() => navigate('/')} />
+        <Logo onClick={onClick} />
         <TabBar />
       </InnerContainer>
     </Container>
