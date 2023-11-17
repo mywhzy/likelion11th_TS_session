@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './style/theme';
 import { GlobalStyles } from './style/GlobalStyles';
 import { GlobalFonts } from './style/GlobalFonts';
-import { Header } from './components/Header';
+import { Header } from './ds/components/Header';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<UserListPage />} />
-          <Route path="register" element={<RegisterPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </SWRConfig>
