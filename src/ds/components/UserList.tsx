@@ -15,7 +15,6 @@ export const UserList = ({ username, email }: UserListProps) => {
 };
 
 const Container = styled.div`
-  width: 1200px;
   padding: 14px 16px;
   border-radius: 12px;
   box-shadow: 0 0 8px 0 #e5e8f0;
