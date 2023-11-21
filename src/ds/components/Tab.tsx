@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import { PropsWithChildren } from 'react';
 
 interface TabProps {
   isActive?: boolean;
@@ -13,12 +13,14 @@ export const Tab = ({
 };
 
 const Button = styled.button<{ $isActive: boolean }>`
-  ${({ theme }) => theme.typography.title1};
   padding: ${({ $isActive }) => ($isActive ? '22px 0 18px 0' : '22px 0')};
-  color: ${({ theme, $isActive }) =>
-    $isActive ? theme.color.green : theme.color.gray1};
-  border-bottom: ${({ theme, $isActive }) =>
+  border-bottom: ${({ $isActive, theme }) =>
     $isActive && `4px solid ${theme.color.green}`};
+  ${({ theme }) => theme.typography.title1};
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.color.green : theme.color.gray1};
+
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     padding: 22px 0 18px 0;
