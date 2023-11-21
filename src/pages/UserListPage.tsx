@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import styled from 'styled-components';
 import { User } from '../types';
-import { UserList } from '../ds/components/UserList';
+import { Card } from '../ds/components/Card';
 import { ReactComponent as HomeLogo } from '../ds/icons/BigLion.svg';
 
 export const UserListPage = () => {
@@ -15,10 +15,10 @@ export const UserListPage = () => {
       <ListContainer>
         {users &&
           users.map((user) => (
-            <UserList
+            <Card
               key={user.email}
-              username={user.username}
-              email={user.email}
+              title={user.username}
+              subtitle={user.email}
             />
           ))}
       </ListContainer>

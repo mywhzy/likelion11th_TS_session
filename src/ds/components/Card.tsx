@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 interface UserListProps {
-  username: string;
-  email: string;
+  title: string;
+  subtitle: string;
 }
 
-export const UserList = ({ username, email }: UserListProps) => {
+export const Card = ({ title, subtitle }: UserListProps) => {
   return (
     <Container>
-      <Body>{email}</Body>
-      <Title>{username}</Title>
+      <Body>{subtitle}</Body>
+      <Title>{title}</Title>
     </Container>
   );
 };
