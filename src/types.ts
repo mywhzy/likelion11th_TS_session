@@ -13,3 +13,5 @@ export interface TabItem {
   id: number;
   title: string;
 }
+
+export type ButtonType = 'button' | 'submit' | 'reset';
