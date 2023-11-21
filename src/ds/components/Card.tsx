@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 interface UserListProps {
-  title: string;
   subtitle: string;
+  title: string;
 }
 
-export const Card = ({ title, subtitle }: UserListProps) => {
+export const Card = ({ subtitle, title }: UserListProps) => {
   return (
     <Container>
-      <Body>{subtitle}</Body>
+      <Subtitle>{subtitle}</Subtitle>
       <Title>{title}</Title>
     </Container>
   );
@@ -24,12 +24,12 @@ const Container = styled.div`
   gap: 12px;
 `;
 
-const Body = styled.p`
+const Subtitle = styled.h3`
   ${({ theme }) => theme.typography.body1}
   color: ${({ theme }) => theme.color.gray2};
 `;
 
-const Title = styled.p`
+const Title = styled.h2`
   ${({ theme }) => theme.typography.title1}
   color: ${({ theme }) => theme.color.gray1};
 `;
