@@ -9,7 +9,7 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface Tabs {
+export interface TabItem {
   id: number;
   title: string;
 }
