@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Tab } from './Tab';
-import { Tabs } from '../../types';
+import { TabItem } from '../../types';
 
 interface TabBarProps {
-  tabs: Tabs[];
+  tabs: TabItem[];
 }
 
 export const TabBar = ({ tabs }: TabBarProps) => {

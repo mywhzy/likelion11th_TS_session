@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { ReactComponent as LogoSvg } from '../../assets/images/Lion.svg';
 import { TabBar } from './TabBar';
-import { Tabs } from '../../types';
+import { ReactComponent as LogoSvg } from '../icons/Lion.svg';
+import { TabItem } from '../../types';
 
 interface HeaderProps {
   onClickLogo: () => void;
-  tabs: Tabs[];
+  tabs: TabItem[];
 }
 
 export const Header = ({ onClickLogo, tabs }: HeaderProps) => {
@@ -19,13 +19,13 @@ export const Header = ({ onClickLogo, tabs }: HeaderProps) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.header`
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
   height: 70px;
-  background-color: #fff;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
   position: sticky;
+  background-color: #fff;
   top: 0;
 `;
 
@@ -36,7 +36,6 @@ const InnerContainer = styled.div`
   padding: 0 20px;
   max-width: 1200px;
   width: 100%;
-  align-self: stretch;
 `;
 
 const Logo = styled(LogoSvg)`
