@@ -3,30 +3,32 @@ import styled from 'styled-components';
 import { ButtonType } from '../../types';
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   type?: ButtonType;
+  marginTop?: string;
 }
 
 export const Button = ({
   onClick,
   type = 'button',
   children,
+  marginTop = '0',
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton onClick={onClick} type={type}>
+    <StyledButton onClick={onClick} type={type} $marginTop={marginTop}>
       {children}
     </StyledButton>
   );
 };
 
-const StyledButton = styled.button`
-  width: 320px;
+const StyledButton = styled.button<{ $marginTop: string }>`
   padding: 14px 16px;
   border-radius: 12px;
   background: linear-gradient(93deg, #cf0 -3.88%, #40ffaf 103.41%);
   color: #fff;
   text-align: center;
   ${({ theme }) => theme.typography.title1};
+  margin-top: ${({ $marginTop }) => $marginTop && $marginTop};
 
   &:hover {
     background: linear-gradient(93deg, #beed04 -3.88%, #2ff19f 103.41%);
