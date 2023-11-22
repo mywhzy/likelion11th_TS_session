@@ -11,7 +11,7 @@ export const LoginPage = () => {
 
   const { trigger } = useSWRMutation('api/auth/login', sendRequest, {
     onSuccess: (data) => {
-      alert(data.data);
+      alert(data.data.message);
       navigate('/');
     },
   });
