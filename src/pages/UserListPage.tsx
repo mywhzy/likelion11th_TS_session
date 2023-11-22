@@ -40,4 +40,5 @@ const ListContainer = styled.div`
   gap: 26px;
   max-width: 1200px;
   width: 100%;
+  margin-bottom: 10px;
 `;
