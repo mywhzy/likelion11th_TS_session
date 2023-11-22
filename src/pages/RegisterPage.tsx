@@ -1,14 +1,17 @@
 import { useFormik } from 'formik';
 import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { sendRequest } from '../utils/sendRequest';
+import { Input } from '../ds/components/Input';
+import { Button } from '../ds/components/Button';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
 
   const { trigger } = useSWRMutation('api/auth/register', sendRequest, {
-    onSuccess: () => {
-      alert('회원가입 성공!');
+    onSuccess: (data) => {
+      alert(data.data.message);
       navigate('/login');
     },
   });
@@ -26,35 +29,55 @@ export const RegisterPage = () => {
   });
 
   return (
-    <>
-      <p>회원가입</p>
-      <form onSubmit={formik.handleSubmit}>
-        <input
+    <Container>
+      <Title>회원가입</Title>
+      <Form onSubmit={formik.handleSubmit}>
+        <Input
+          title="이름"
           type="text"
           name="username"
-          placeholder="User Name"
           onChange={formik.handleChange}
           value={formik.values.username}
-          required
         />
-        <input
+        <Input
+          title="이메일"
           type="email"
           name="email"
-          placeholder="Email"
           onChange={formik.handleChange}
           value={formik.values.email}
-          required
         />
-        <input
+        <Input
+          title="비밀번호"
           type="password"
           name="password"
-          placeholder="Password"
           onChange={formik.handleChange}
           value={formik.values.password}
-          required
         />
-        <button type="submit">회원가입</button>
-      </form>
-    </>
+        <Button type="submit" marginTop="44px">
+          회원가입
+        </Button>
+      </Form>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  align-items: center;
+  margin-top: 100px;
+`;
+
+const Title = styled.h2`
+  ${({ theme }) => theme.typography.title1}
+  color: ${({ theme }) => theme.color.gray1};
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+  max-width: 500px;
+`;
