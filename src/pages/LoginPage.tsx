@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import useSWRMutation from 'swr/mutation';
 import { useFormik } from 'formik';
+import styled from 'styled-components';
 import { sendRequest } from '../utils/sendRequest';
+import { Button } from '../ds/components/Button';
+import { Input } from '../ds/components/Input';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
 
   const { trigger } = useSWRMutation('api/auth/login', sendRequest, {
-    onSuccess: () => {
-      alert('로그인 성공!');
+    onSuccess: (data) => {
+      alert(data.data);
       navigate('/');
     },
   });
@@ -25,27 +28,49 @@ export const LoginPage = () => {
   });
 
   return (
-    <>
-      <p>로그인</p>
-      <form onSubmit={formik.handleSubmit}>
-        <input
-          type="email"
+    <Container>
+      <Title>로그인</Title>
+      <Form onSubmit={formik.handleSubmit}>
+        <Input
+          title="이메일"
           name="email"
-          placeholder="Email"
           onChange={formik.handleChange}
           value={formik.values.email}
-          required
+          errorMessage={formik.errors.email}
         />
-        <input
+        <Input
+          title="비밀번호"
           type="password"
           name="password"
-          placeholder="Password"
           onChange={formik.handleChange}
           value={formik.values.password}
-          required
+          errorMessage={formik.errors.password}
         />
-        <button type="submit">로그인</button>
-      </form>
-    </>
+        <Button type="submit" marginTop="44px">
+          로그인
+        </Button>
+      </Form>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  align-items: center;
+  margin-top: 100px;
+`;
+
+const Title = styled.h2`
+  ${({ theme }) => theme.typography.title1}
+  color: ${({ theme }) => theme.color.gray1};
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+  max-width: 500px;
+`;
