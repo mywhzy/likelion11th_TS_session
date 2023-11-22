@@ -11,5 +11,10 @@ export const sendRequest = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(arg),
-  }).then((response) => response.json());
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error;
+    }
+    return response.json();
+  });
 };
