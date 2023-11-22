@@ -63,6 +63,10 @@ button{
 	cursor: pointer;
  }
 
+ input{
+	outline: none;
+ }
+
 *,body {
     font-family: 'Pretendard';
 }
