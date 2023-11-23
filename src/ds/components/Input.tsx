@@ -6,6 +6,8 @@ export interface InputProps {
   name?: string;
   value: string | number | readonly string[];
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   errorMessage?: string;
 }
 
@@ -15,6 +17,8 @@ export const Input = ({
   name,
   value,
   onChange,
+  onFocus,
+  onBlur,
   errorMessage,
 }: InputProps) => {
   return (
@@ -25,6 +29,8 @@ export const Input = ({
         name={name}
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         $isError={!!errorMessage}
       />
       {!!errorMessage && <HelperText>{errorMessage}</HelperText>}
@@ -56,6 +62,13 @@ const StyledInput = styled.input<{ $isError: boolean }>`
     border: 1px solid
       ${({ $isError, theme }) =>
         $isError ? theme.color.red : theme.color.gray2};
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: ${({ theme }) => theme.color.gray1};
   }
 
   &:active {
