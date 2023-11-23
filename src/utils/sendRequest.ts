@@ -5,16 +5,18 @@ export const sendRequest = async (
   url: string,
   { arg }: { arg: User | LoginFormValues },
 ) => {
-  return await fetch(BASE_URL + url, {
+  const response = await fetch(BASE_URL + url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(arg),
-  }).then((response) => {
-    if (!response.ok) {
-      throw Error;
-    }
-    return response.json();
   });
+  if (!response.ok) {
+    const error = await response.json().then((data) => {
+      return data.error;
+    });
+    throw error;
+  }
+  return response.json();
 };
