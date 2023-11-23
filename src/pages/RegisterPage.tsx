@@ -1,19 +1,44 @@
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import * as Yup from 'yup';
 import { sendRequest } from '../utils/sendRequest';
 import { Input } from '../ds/components/Input';
 import { Button } from '../ds/components/Button';
+import { INPUT_ERROR_MESSAGE, EMAIL_REGEX } from '../constants';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
+  const [onClickRegisterBtn, setOnClickRegisterBtn] = useState(false);
+  const [submitErrors, setSubmitErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [duplicateEmail, setDuplicateEmail] = useState('');
 
   const { trigger } = useSWRMutation('api/auth/register', sendRequest, {
     onSuccess: (data) => {
       alert(data.data.message);
       navigate('/login');
     },
+    onError: (error) => {
+      if (error.message === INPUT_ERROR_MESSAGE.duplicateEmail) {
+        setDuplicateEmail(formik.values.email);
+        formik.setErrors({
+          ...formik.errors,
+          email: INPUT_ERROR_MESSAGE.duplicateEmail,
+        });
+      }
+    },
+  });
+
+  const validationSchema = Yup.object({
+    username: Yup.string().required(INPUT_ERROR_MESSAGE.requiredUsername),
+    email: Yup.string().required(INPUT_ERROR_MESSAGE.requiredEmail),
+    password: Yup.string().required(INPUT_ERROR_MESSAGE.requiredPassword),
   });
 
   const formik = useFormik({
@@ -22,11 +47,106 @@ export const RegisterPage = () => {
       email: '',
       password: '',
     },
+    validationSchema: validationSchema,
+    validateOnChange: false,
     onSubmit: async (values, { resetForm }) => {
       await trigger(values);
       resetForm();
     },
   });
+
+  const onFocus = (inputName: 'username' | 'email' | 'password') => {
+    switch (inputName) {
+      case 'username':
+        if (formik.errors.username && onClickRegisterBtn) {
+          setSubmitErrors({
+            ...submitErrors,
+            username: formik.errors.username,
+          });
+        }
+        formik.setErrors({
+          ...formik.errors,
+          username: '',
+        });
+        break;
+      case 'email':
+        if (formik.errors.email && onClickRegisterBtn) {
+          setSubmitErrors({
+            ...submitErrors,
+            email: formik.errors.email,
+          });
+        }
+        formik.setErrors({
+          ...formik.errors,
+          email: '',
+        });
+        break;
+      case 'password':
+        if (formik.errors.password && onClickRegisterBtn) {
+          setSubmitErrors({
+            ...submitErrors,
+            password: formik.errors.password,
+          });
+        }
+        formik.setErrors({
+          ...formik.errors,
+          password: '',
+        });
+        break;
+    }
+    return formik.handleBlur;
+  };
+
+  const validateEmailFormat = () => {
+    if (formik.values.email && !EMAIL_REGEX.test(formik.values.email)) {
+      formik.setErrors({
+        ...formik.errors,
+        email: INPUT_ERROR_MESSAGE.formatEmail,
+      });
+    }
+  };
+
+  const checkDuplicateEmail = () => {
+    if (duplicateEmail && formik.values.email === duplicateEmail) {
+      formik.setErrors({
+        ...formik.errors,
+        email: INPUT_ERROR_MESSAGE.duplicateEmail,
+      });
+    }
+  };
+
+  const onBlur = (inputName: 'username' | 'email' | 'password') => {
+    switch (inputName) {
+      case 'username':
+        if (!formik.values.username && submitErrors.username) {
+          formik.setErrors({
+            ...formik.errors,
+            username: INPUT_ERROR_MESSAGE.requiredUsername,
+          });
+        }
+        break;
+      case 'email':
+        if (!formik.values.email && submitErrors.email) {
+          formik.setErrors({
+            ...formik.errors,
+            email: INPUT_ERROR_MESSAGE.requiredEmail,
+          });
+        }
+        validateEmailFormat();
+        checkDuplicateEmail();
+        break;
+      case 'password':
+        if (!formik.values.password && submitErrors.password) {
+          formik.setErrors({
+            ...formik.errors,
+            password: INPUT_ERROR_MESSAGE.requiredPassword,
+          });
+        }
+        break;
+    }
+
+    return formik.handleBlur;
+  };
 
   return (
     <Container>
@@ -36,24 +156,36 @@ export const RegisterPage = () => {
           title="이름"
           type="text"
           name="username"
+          onFocus={() => onFocus('username')}
           onChange={formik.handleChange}
+          onBlur={() => onBlur('username')}
           value={formik.values.username}
+          errorMessage={formik.errors.username}
         />
         <Input
           title="이메일"
-          type="email"
           name="email"
           onChange={formik.handleChange}
+          onFocus={() => onFocus('email')}
+          onBlur={() => onBlur('email')}
           value={formik.values.email}
+          errorMessage={formik.errors.email}
         />
         <Input
           title="비밀번호"
           type="password"
           name="password"
+          onFocus={() => onFocus('password')}
+          onBlur={() => onBlur('password')}
           onChange={formik.handleChange}
           value={formik.values.password}
+          errorMessage={formik.errors.password}
         />
-        <Button type="submit" marginTop="44px">
+        <Button
+          type="submit"
+          marginTop="44px"
+          onClick={() => setOnClickRegisterBtn(true)}
+        >
           회원가입
         </Button>
       </Form>
