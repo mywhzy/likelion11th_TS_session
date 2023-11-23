@@ -3,13 +3,19 @@ import { PropsWithChildren } from 'react';
 
 interface TabProps {
   isActive?: boolean;
+  onClick: () => void;
 }
 
 export const Tab = ({
   isActive = false,
+  onClick,
   children,
 }: PropsWithChildren<TabProps>) => {
-  return <Button $isActive={isActive}>{children}</Button>;
+  return (
+    <Button $isActive={isActive} onClick={onClick}>
+      {children}
+    </Button>
+  );
 };
 
 const Button = styled.button<{ $isActive: boolean }>`

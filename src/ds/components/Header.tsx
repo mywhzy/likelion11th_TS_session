@@ -4,16 +4,23 @@ import { ReactComponent as LogoSvg } from '../icons/Lion.svg';
 import { TabItem } from '../../types';
 
 interface HeaderProps {
-  onClickLogo: () => void;
   tabs: TabItem[];
+  currentTab: number;
+  onClickLogo: () => void;
+  onClickTab: (id: number) => void;
 }
 
-export const Header = ({ onClickLogo, tabs }: HeaderProps) => {
+export const Header = ({
+  tabs,
+  currentTab,
+  onClickLogo,
+  onClickTab,
+}: HeaderProps) => {
   return (
     <Container>
       <InnerContainer>
         <Logo onClick={onClickLogo} />
-        <TabBar tabs={tabs} />
+        <TabBar tabs={tabs} onClickTab={onClickTab} currentTab={currentTab} />
       </InnerContainer>
     </Container>
   );
