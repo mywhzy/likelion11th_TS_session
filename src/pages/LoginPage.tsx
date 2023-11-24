@@ -125,6 +125,17 @@ export const LoginPage = () => {
     }
   };
 
+  const onChange = (event: React.ChangeEvent) => {
+    if (notRegisteredEmail) {
+      setNotRegisteredEmail('');
+    }
+    if (wrongPassword) {
+      setWrongPassword('');
+    }
+
+    return formik.handleChange(event);
+  };
+
   return (
     <Container>
       <Title>로그인</Title>
@@ -132,7 +143,7 @@ export const LoginPage = () => {
         <Input
           title="이메일"
           name="email"
-          onChange={formik.handleChange}
+          onChange={onChange}
           onFocus={() => onFocus('email')}
           onBlur={() => onBlur('email')}
           value={formik.values.email}
@@ -142,7 +153,7 @@ export const LoginPage = () => {
           title="비밀번호"
           type="password"
           name="password"
-          onChange={formik.handleChange}
+          onChange={onChange}
           onFocus={() => onFocus('password')}
           onBlur={() => onBlur('password')}
           value={formik.values.password}

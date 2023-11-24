@@ -93,6 +93,14 @@ export const RegisterPage = () => {
     }
   };
 
+  const onChangeEmail = (event: React.ChangeEvent) => {
+    if (duplicateEmail) {
+      setDuplicateEmail('');
+    }
+
+    return formik.handleChange(event);
+  };
+
   const onBlur = (inputName: 'username' | 'email' | 'password') => {
     switch (inputName) {
       case 'username':
@@ -143,7 +151,7 @@ export const RegisterPage = () => {
         <Input
           title="이메일"
           name="email"
-          onChange={formik.handleChange}
+          onChange={onChangeEmail}
           onFocus={() => onFocus('email')}
           onBlur={() => onBlur('email')}
           value={formik.values.email}
