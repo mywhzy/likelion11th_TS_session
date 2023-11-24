@@ -4,8 +4,10 @@ export const INPUT_ERROR_MESSAGE = {
   requiredUsername: '이름을 입력해주세요',
   requiredEmail: '이메일을 입력해주세요',
   requiredPassword: '비밀번호를 입력해주세요',
-  formatEmail: '이메일 형식이 올바르지 않습니다.',
+  formatEmail: '이메일 형식이 올바르지 않습니다',
   duplicateEmail: '이미 존재하는 이메일입니다',
+  notRegisteredEmail: '가입되지 않은 이메일입니다',
+  wrongPassword: '비밀번호를 잘못 입력했습니다',
 };
 
 export const EMAIL_REGEX = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
