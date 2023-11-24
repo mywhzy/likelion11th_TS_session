@@ -5,13 +5,14 @@ import { Card } from '../ds/components/Card';
 import { ReactComponent as HomeLogo } from '../ds/icons/BigLion.svg';
 
 export const UserListPage = () => {
-  const { data } = useSWR('api/users');
+  const { data, error } = useSWR('api/users');
 
   const users: User[] = data?.data.users;
 
   return (
     <Container>
       <HomeLogo />
+      {error && <b>Loading...</b>}
       <ListContainer>
         {users &&
           users.map((user) => (
