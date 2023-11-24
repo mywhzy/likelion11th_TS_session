@@ -11,12 +11,6 @@ import { INPUT_ERROR_MESSAGE, EMAIL_REGEX } from '../constants';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-  const [onClickRegisterBtn, setOnClickRegisterBtn] = useState(false);
-  const [submitErrors, setSubmitErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
   const [duplicateEmail, setDuplicateEmail] = useState('');
 
   const { trigger } = useSWRMutation('api/auth/register', sendRequest, {
@@ -58,36 +52,18 @@ export const RegisterPage = () => {
   const onFocus = (inputName: 'username' | 'email' | 'password') => {
     switch (inputName) {
       case 'username':
-        if (formik.errors.username && onClickRegisterBtn) {
-          setSubmitErrors({
-            ...submitErrors,
-            username: formik.errors.username,
-          });
-        }
         formik.setErrors({
           ...formik.errors,
           username: '',
         });
         break;
       case 'email':
-        if (formik.errors.email && onClickRegisterBtn) {
-          setSubmitErrors({
-            ...submitErrors,
-            email: formik.errors.email,
-          });
-        }
         formik.setErrors({
           ...formik.errors,
           email: '',
         });
         break;
       case 'password':
-        if (formik.errors.password && onClickRegisterBtn) {
-          setSubmitErrors({
-            ...submitErrors,
-            password: formik.errors.password,
-          });
-        }
         formik.setErrors({
           ...formik.errors,
           password: '',
@@ -107,18 +83,20 @@ export const RegisterPage = () => {
   };
 
   const checkDuplicateEmail = () => {
-    if (duplicateEmail && formik.values.email === duplicateEmail) {
-      formik.setErrors({
-        ...formik.errors,
-        email: INPUT_ERROR_MESSAGE.duplicateEmail,
-      });
+    if (duplicateEmail) {
+      if (formik.values.email === duplicateEmail) {
+        formik.setErrors({
+          ...formik.errors,
+          email: INPUT_ERROR_MESSAGE.duplicateEmail,
+        });
+      }
     }
   };
 
   const onBlur = (inputName: 'username' | 'email' | 'password') => {
     switch (inputName) {
       case 'username':
-        if (!formik.values.username && submitErrors.username) {
+        if (!formik.values.username) {
           formik.setErrors({
             ...formik.errors,
             username: INPUT_ERROR_MESSAGE.requiredUsername,
@@ -126,7 +104,7 @@ export const RegisterPage = () => {
         }
         break;
       case 'email':
-        if (!formik.values.email && submitErrors.email) {
+        if (!formik.values.email) {
           formik.setErrors({
             ...formik.errors,
             email: INPUT_ERROR_MESSAGE.requiredEmail,
@@ -136,7 +114,7 @@ export const RegisterPage = () => {
         checkDuplicateEmail();
         break;
       case 'password':
-        if (!formik.values.password && submitErrors.password) {
+        if (!formik.values.password) {
           formik.setErrors({
             ...formik.errors,
             password: INPUT_ERROR_MESSAGE.requiredPassword,
@@ -181,11 +159,7 @@ export const RegisterPage = () => {
           value={formik.values.password}
           errorMessage={formik.errors.password}
         />
-        <Button
-          type="submit"
-          marginTop="44px"
-          onClick={() => setOnClickRegisterBtn(true)}
-        >
+        <Button type="submit" marginTop="44px">
           회원가입
         </Button>
       </Form>

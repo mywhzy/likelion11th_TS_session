@@ -11,11 +11,6 @@ import { INPUT_ERROR_MESSAGE, EMAIL_REGEX } from '../constants';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const [onClickLoginBtn, setOnClickLoginBtn] = useState(false);
-  const [submitErrors, setSubmitErrors] = useState({
-    email: '',
-    password: '',
-  });
   const [notRegisteredEmail, setNotRegisteredEmail] = useState('');
   const [wrongPassword, setWrongPassword] = useState('');
 
@@ -71,24 +66,12 @@ export const LoginPage = () => {
   const onFocus = (inputName: 'email' | 'password') => {
     switch (inputName) {
       case 'email':
-        if (formik.errors.email && onClickLoginBtn) {
-          setSubmitErrors({
-            ...submitErrors,
-            email: formik.errors.email,
-          });
-        }
         formik.setErrors({
           ...formik.errors,
           email: '',
         });
         break;
       case 'password':
-        if (formik.errors.password && onClickLoginBtn) {
-          setSubmitErrors({
-            ...submitErrors,
-            password: formik.errors.password,
-          });
-        }
         formik.setErrors({
           ...formik.errors,
           password: '',
@@ -101,7 +84,7 @@ export const LoginPage = () => {
   const onBlur = (inputName: 'email' | 'password') => {
     switch (inputName) {
       case 'email':
-        if (!formik.values.email && submitErrors.email) {
+        if (!formik.values.email) {
           formik.setErrors({
             ...formik.errors,
             email: INPUT_ERROR_MESSAGE.requiredEmail,
@@ -111,7 +94,7 @@ export const LoginPage = () => {
         checkNotRegisteredEmail();
         break;
       case 'password':
-        if (!formik.values.password && submitErrors.password) {
+        if (!formik.values.password) {
           formik.setErrors({
             ...formik.errors,
             password: INPUT_ERROR_MESSAGE.requiredPassword,
@@ -165,11 +148,7 @@ export const LoginPage = () => {
           value={formik.values.password}
           errorMessage={formik.errors.password}
         />
-        <Button
-          type="submit"
-          marginTop="44px"
-          onClick={() => setOnClickLoginBtn(true)}
-        >
+        <Button type="submit" marginTop="44px">
           로그인
         </Button>
       </Form>
