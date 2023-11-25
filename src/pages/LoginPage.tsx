@@ -159,7 +159,7 @@ export const LoginPage = () => {
           value={formik.values.password}
           errorMessage={formik.errors.password}
         />
-        <Button type="submit" marginTop="44px">
+        <Button type="submit" marginTop={44}>
           로그인
         </Button>
       </Form>

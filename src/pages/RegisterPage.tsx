@@ -167,7 +167,7 @@ export const RegisterPage = () => {
           value={formik.values.password}
           errorMessage={formik.errors.password}
         />
-        <Button type="submit" marginTop="44px">
+        <Button type="submit" marginTop={44}>
           회원가입
         </Button>
       </Form>
