@@ -11,13 +11,16 @@ import { theme } from './ds/theme';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { GlobalFonts } from './styles/GlobalFonts';
 import { Header } from './ds/components/Header';
+import { useSessionStore } from './stores/session';
 
 function App() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState(0);
   const path = useLocation().pathname;
+  const username = useSessionStore((state) => state.username);
+  const logout = useSessionStore((state) => state.logout);
 
-  const tabs = [
+  const logoutTabs = [
     {
       id: 1,
       title: '로그인',
@@ -28,21 +31,34 @@ function App() {
     },
   ];
 
+  const loginTabs = [
+    {
+      id: 1,
+      title: '로그아웃',
+    },
+  ];
+
   useEffect(() => {
     if (path === '/') {
       setCurrentTab(0);
     } else if (path === '/login') {
-      setCurrentTab(tabs[0].id);
+      setCurrentTab(logoutTabs[0].id);
     } else if (path === '/register') {
-      setCurrentTab(tabs[1].id);
+      setCurrentTab(logoutTabs[1].id);
     }
   });
+
+  const confirmLogout = () => {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
+      logout();
+    }
+  };
 
   const onClickTab = (id: number) => {
     setCurrentTab(id);
     switch (id) {
       case 1:
-        navigate('/login');
+        username ? confirmLogout() : navigate('/login');
         break;
       case 2:
         navigate('/register');
@@ -62,9 +78,10 @@ function App() {
       >
         <Header
           onClickLogo={() => navigate('/')}
-          tabs={tabs}
+          tabs={username ? loginTabs : logoutTabs}
           onClickTab={onClickTab}
           currentTab={currentTab}
+          username={username}
         />
         <Routes>
           <Route path="/" element={<UserListPage />} />
