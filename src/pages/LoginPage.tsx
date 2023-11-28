@@ -8,15 +8,18 @@ import { Button } from '../ds/components/Button';
 import { Input } from '../ds/components/Input';
 import * as Yup from 'yup';
 import { INPUT_ERROR_MESSAGE, EMAIL_REGEX } from '../constants';
+import { useSessionStore } from '../stores/session';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [notRegisteredEmail, setNotRegisteredEmail] = useState('');
   const [wrongPassword, setWrongPassword] = useState('');
+  const login = useSessionStore((state) => state.login);
 
   const { trigger } = useSWRMutation('api/auth/login', sendRequest, {
     onSuccess: (data) => {
       alert(data.data.message);
+      login({ jwt: data.data.jwt, username: data.data.username });
       navigate('/');
     },
     onError: (error) => {
