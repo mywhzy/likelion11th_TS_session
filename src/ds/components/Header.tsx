@@ -2,15 +2,18 @@ import styled from 'styled-components';
 import { TabBar } from './TabBar';
 import { ReactComponent as LogoSvg } from '../icons/Lion.svg';
 import { TabItem } from '../../types';
+import { UsernameBox } from '../../components/UsernameBox';
 
 interface HeaderProps {
   tabs: TabItem[];
+  username: string | null;
   currentTab: number;
   onClickLogo: () => void;
   onClickTab: (id: number) => void;
 }
 
 export const Header = ({
+  username,
   tabs,
   currentTab,
   onClickLogo,
@@ -20,7 +23,10 @@ export const Header = ({
     <Container>
       <InnerContainer>
         <Logo onClick={onClickLogo} />
-        <TabBar tabs={tabs} onClickTab={onClickTab} currentTab={currentTab} />
+        <SideContainer>
+          {username && <UsernameBox username={username} />}
+          <TabBar tabs={tabs} onClickTab={onClickTab} currentTab={currentTab} />
+        </SideContainer>
       </InnerContainer>
     </Container>
   );
@@ -43,6 +49,11 @@ const InnerContainer = styled.div`
   padding: 0 20px;
   max-width: 1200px;
   width: 100%;
+`;
+
+const SideContainer = styled.div`
+  display: flex;
+  gap: 40px;
 `;
 
 const Logo = styled(LogoSvg)`
