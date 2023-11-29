@@ -12,7 +12,7 @@ export const UserListPage = () => {
   return (
     <Container>
       <HomeLogo />
-      {error && <b>Loading...</b>}
+      {(!data || error) && <b>Loading...</b>}
       <ListContainer>
         {users &&
           users.map((user) => (
